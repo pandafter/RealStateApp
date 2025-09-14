@@ -46,10 +46,10 @@ export default function Filters({
   const apply = useCallback(() => {
     if (!syncUrlOnApply) return;
     const q = new URLSearchParams(params.toString());
-    name ? q.set("name", name) : q.delete("name");
-    address ? q.set("address", address) : q.delete("address");
-    minPrice ? q.set("minPrice", minPrice) : q.delete("minPrice");
-    maxPrice ? q.set("maxPrice", maxPrice) : q.delete("maxPrice");
+    if (name) q.set("name", name); else q.delete("name");
+    if (address) q.set("address", address); else q.delete("address");
+    if (minPrice) q.set("minPrice", minPrice); else q.delete("minPrice");
+    if (maxPrice) q.set("maxPrice", maxPrice); else q.delete("maxPrice");
     q.set("page", "1");
     router.replace(`${pathname}?${q.toString()}`, { scroll: false });
   }, [name, address, minPrice, maxPrice, params, pathname, router, syncUrlOnApply]);

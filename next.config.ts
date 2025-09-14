@@ -1,11 +1,9 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
-  experimental: {
-    turbo: {
-      rules: {},
-    },
-  },
+  turbopack: {
+    
+  }
 };
 
 module.exports = nextConfig;

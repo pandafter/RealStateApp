@@ -4,7 +4,8 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Filters from "@/components/Filters";
 import PropertyCard from "@/components/PropertyCard";
 import { PropertiesResponse } from "@/types";
-import fetchJSON from "@/lib/api";
+const { default: fetchJSON } = await import("@/lib/api");
+
  
 
 type FiltersState = {
@@ -58,7 +59,7 @@ export default function PropertiesLive({
 
 
   useEffect(() => {
-    let timer: NodeJS.Timeout | null = setInterval(async () => {
+    setInterval(async () => {
       const id = ++reqCounter.current;
       try {
         const res = await fetchJSON<PropertiesResponse>(
@@ -69,18 +70,9 @@ export default function PropertiesLive({
         console.warn("Polling failed, keeping previous data:", err);
       }
     }, pollMs);
-
-    // Listener safe: limpiar cuando la página entra a bfcache
-    const handlePageHide = () => {
-      if (timer) clearInterval(timer);
-    };
-    window.addEventListener("pagehide", handlePageHide);
-
-    return () => {
-      if (timer) clearInterval(timer);
-      window.removeEventListener("pagehide", handlePageHide);
-    };
   }, [query, pollMs]);
+
+
   const totalPages = Math.max(1, Math.ceil(data.total / filters.size));
   const goPage = (p: number) => setFilters(f => ({ ...f, page: Math.min(Math.max(1, p), totalPages) }));
 
