@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+
+:root { 
+  --radius: 10px; 
+}
+
+* { 
+  box-sizing: border-box; 
+}
+
+body { 
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Helvetica, Arial, sans-serif; 
+}
+
+a { 
+  color: inherit; 
+}
+
+
+span, p, h1, h2, h3, a, dl, dd, dt .filters{
+  user-select: none;
+}
+
+.Owner, .Location {
+  user-select: text;
+}
